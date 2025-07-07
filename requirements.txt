@@ -1,1 +1,89 @@
+Assignment Requirements
+📂 Input Files
+Located at:
+🔗 Google Drive Folder
+
+transactions.csv: transaction logs between customers and merchants
+
+CustomerImportance.csv: importance weights for customers and transaction types
+
+⚙️ Mechanism X – Ingest from GDrive to S3
+Simulate reading 10,000 rows every second from transactions.csv
+
+Save each chunk into a separate folder on AWS S3
+
+This simulates a real-time feed
+
+⚙️ Mechanism Y – Pattern Detection
+Continuously monitor the S3 bucket for new files
+
+Detect and output the following patterns:
+
+📌 Pattern 1: PatId1 - UPGRADE
+Merchant has > 50K transactions
+
+Customer is in top 10 percentile (by transaction count)
+
+Customer has low average weight (bottom 10%)
+
+Output action: UPGRADE
+
+📌 Pattern 2: PatId2 - CHILD
+Customer has average transaction value < ₹23
+
+Has made ≥ 80 transactions with the same merchant
+
+Output action: CHILD
+
+📌 Pattern 3: PatId3 - DEI-NEEDED
+A merchant has > 100 female customers
+
+Number of female customers < number of male customers
+
+Output action: DEI-NEEDED
+
+💾 PostgreSQL Usage (Mandatory)
+Use PostgreSQL to store:
+
+Intermediate counts (e.g. total transactions per merchant)
+
+Running stats (e.g. transaction average per customer)
+
+Detections already performed (to avoid duplicates)
+
+💡 Technical Constraints
+Use Databricks with PySpark
+
+Ingest data into AWS S3
+
+Stream detect and output back to S3
+
+Use PostgreSQL for state management
+
+Make necessary assumptions (document them)
+
+You may learn any unfamiliar technology
+
+📝 Submission Requirements
+✅ GitHub repo with:
+
+Notebooks
+
+PostgreSQL setup scripts
+
+Helper functions
+
+README.md with architecture and how-to-run
+
+✅ S3 download link to zipped output files
+
+✅ 4 Loom videos showing:
+
+Code explanation
+
+Running demo
+
+Output & intermediate files
+
+Architecture overview
 
